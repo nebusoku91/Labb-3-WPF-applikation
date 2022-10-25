@@ -1,19 +1,6 @@
-﻿using Microsoft.VisualBasic;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Labb_3___WPF_applikation
 {
@@ -24,31 +11,39 @@ namespace Labb_3___WPF_applikation
     {
 
         List<Booking> bookings = new List<Booking>();
-        
+
+        // Order =  Name > Table > Date > Time
+
         public MainWindow()
         {
             InitializeComponent();
             DisplayContent();
         }
+
         private void DisplayContent()
         {
             lbox_Bookings_Content.Items.Clear();
-            foreach (Booking booking in bookings)
-            {
-                lbox_Bookings_Content.Items.Add(String.Format("{0} {1} {2} {3}", booking.Name, booking.TableNumber, booking.Date, booking.Time));
-            }
 
+            foreach (Booking x in bookings)
+            {
+                lbox_Bookings_Content.Items.Add(String.Format("{0}, {1}, {2}, {3}.", x.Name, x.TableNumber, x.Date, x.Time));
+            }
         }
+
         private void btn_Boka_Click(object sender, RoutedEventArgs e)
         {
-            string input1 = txt_nameInput.Text;
-            string input2 = cmbox_Table.Text;
-            string input3 = btn_DatePicker.Text;
-            string input4 = cbox_Time.Text;
-
-            bookings.Add(new Booking(input1, input2, input3, input4));
-;
-            
+            string input_Name = txt_nameInput.Text;
+            string input_Table = cmbox_Table.Text;
+            string input_Date = btn_DatePicker.Text;
+            string input_Time = cbox_Time.Text;
+            if(input_Name == "" || input_Table == "" || input_Date == "" || input_Time == "")
+            {
+                return;
+            }
+            else
+            {
+                bookings.Add(new Booking(input_Name, input_Table, input_Date, input_Time));
+            }
             DisplayContent();
         }
 
