@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualBasic;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,13 +23,8 @@ namespace Labb_3___WPF_applikation
     public partial class MainWindow : Window
     {
 
-        List<Booking> bookings = new List<Booking>()
-        {
-            new Booking("name", "tablenumber", "date", "time"),
-            new Booking("name", "tablenumber", "date", "time")
-        };
+        List<Booking> bookings = new List<Booking>();
         
-    
         public MainWindow()
         {
             InitializeComponent();
@@ -36,9 +32,12 @@ namespace Labb_3___WPF_applikation
         }
         private void DisplayContent()
         {
-            lbox_Bookings_Content.ItemsSource = null;
+            lbox_Bookings_Content.Items.Clear();
+            foreach (Booking booking in bookings)
+            {
+                lbox_Bookings_Content.Items.Add(String.Format("{0} {1} {2} {3}", booking.Name, booking.TableNumber, booking.Date, booking.Time));
+            }
 
-            lbox_Bookings_Content.ItemsSource = bookings;
         }
         private void btn_Boka_Click(object sender, RoutedEventArgs e)
         {
@@ -46,7 +45,6 @@ namespace Labb_3___WPF_applikation
             string input2 = cmbox_Table.Text;
             string input3 = btn_DatePicker.Text;
             string input4 = cbox_Time.Text;
-           
 
             bookings.Add(new Booking(input1, input2, input3, input4));
 ;
@@ -61,9 +59,12 @@ namespace Labb_3___WPF_applikation
 
         private void btn_Avboka_Click(object sender, RoutedEventArgs e)
         {
-            if (lbox_Bookings_Content == null)
+            int index = lbox_Bookings_Content.SelectedIndex;
+            if (lbox_Bookings_Content.SelectedItem == null)
                 return;
-           // bookings.Remove(lbox_Bookings_Content.SelectedItem);
+
+            bookings.RemoveAt(index);
+
             DisplayContent();
         }
     }
