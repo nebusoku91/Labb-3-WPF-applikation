@@ -83,7 +83,16 @@ namespace Labb_3___WPF_applikation
 
         private void btn_Visa_Click(object sender, RoutedEventArgs e)
         {
-            DisplayContent();
+            try
+            {
+                DisplayContent();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, David.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }
+
         }
 
         private void btn_Avboka_Click(object sender, RoutedEventArgs e)
