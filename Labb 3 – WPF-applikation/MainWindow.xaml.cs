@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 
@@ -18,65 +20,79 @@ namespace Labb_3___WPF_applikation
         new Booking ("Stina Lundgren", "Bord 5", "2023-10-22", "11:00"),
         };
 
-        // Order =  Date > Name > Table > Time
+        string[] array = { "08:00", "08.30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00",
+        "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:"};
+
+        // Display Order =  Date > Name > Table > Time
 
         public MainWindow()
         {
             InitializeComponent();
             DisplayContent();
-            btn_DatePicker.DisplayDateStart = DateTime.Today;
-            Loaded += (s, e) => Keyboard.Focus(txt_nameInput);
+            main_DatePicker.DisplayDateStart = DateTime.Today;
+            Loaded += (s, e) => Keyboard.Focus(main_nameInput);
         }
 
         private void DisplayContent()
         {
             try
             {
-                lbox_Bookings_Content.Items.Clear();
+                main_Bookings_ListBox.Items.Clear();
 
                 foreach (Booking x in bookings)
                 {
-                    lbox_Bookings_Content.Items.Add(String.Format("{0}, {1}, {2}, kl. {3}.", x.Date, x.Name, x.TableNumber, x.Time));
+                    main_Bookings_ListBox.Items.Add(String.Format("{0}, {1}, {2}, kl. {3}.", x.Date, x.Name, x.TableNumber, x.Time));
                 }
             }
-            catch (Exception ex)
+            catch (InvalidOperationException ex)
             {
-                System.Windows.MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+
             }
+            catch (FormatException ex)
+            {
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }
+            catch (ArgumentNullException ex)
+            {
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }
+
 
         }
 
-        private void btn_Boka_Click(object sender, RoutedEventArgs e)
+        private void main_BokaBtn_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                string input_Name = main_nameInput.Text;
+                string input_Table = main_Table.Text;
+                string input_DatePicker = main_DatePicker.Text;
+                string input_Time = main_Time.Text;
 
-                string input_Name = txt_nameInput.Text;
-                string input_Table = cbox_Table.Text;
-                string input_Date = btn_DatePicker.Text;
-                string input_Time = cbox_Time.Text;
-
-                if (input_Name == "" || input_Table == "" || input_Date == "" || input_Time == "")
+                if (input_Name == "" || input_Table == "" || input_DatePicker == "" || input_Time == "")
                 {
-                    System.Windows.MessageBox.Show("Namn, Datum, Tid, och Bordsnummer behövs specificeras innan det kan läggas in i listan.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                    System.Windows.MessageBox.Show("Namn, Datum, Tid, och Bordsnummer måste specificeras innan det kan läggas in i listan.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
 
                 foreach (Booking xy in bookings)
                 {
-                    if (xy.Date == input_Date && xy.Time == input_Time && xy.TableNumber == input_Table)
+                    if (xy.Date == input_DatePicker && xy.Time == input_Time && xy.TableNumber == input_Table)
                     {
-                        System.Windows.MessageBox.Show("Det angivna datumet, tiden, och bordet är redan bokade.", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                        System.Windows.MessageBox.Show("Det angivna datum, tid, eller bord är ej tillgänglig.", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
                         return;
                     }
                 }
 
-                bookings.Add(new Booking(input_Name, input_Table, input_Date, input_Time));
+                bookings.Add(new Booking(input_Name, input_Table, input_DatePicker, input_Time));
                 DisplayContent();
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show("I'm afraid I can't do that, David.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
         }
@@ -89,7 +105,7 @@ namespace Labb_3___WPF_applikation
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show("I'm afraid I can't do that, David.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
 
             }
 
@@ -99,17 +115,62 @@ namespace Labb_3___WPF_applikation
         {
             try
             {
-                int index = lbox_Bookings_Content.SelectedIndex;
-                if (lbox_Bookings_Content.SelectedItem == null)
+                int index = main_Bookings_ListBox.SelectedIndex;
+                if (main_Bookings_ListBox.SelectedItem == null)
                     return;
 
                 bookings.RemoveAt(index);
 
                 DisplayContent();
             }
-            catch (Exception ex)
+            catch (ArgumentOutOfRangeException ex)
             {
-                System.Windows.MessageBox.Show("I'm afraid I can't do that, David.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+        }
+
+        private void main_LoadBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.DefaultExt = ".txt";
+            dlg.Filter = "Text Document|*.txt";
+
+            Nullable<bool> result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                using (FileStream fs = (FileStream)dlg.OpenFile())
+                {
+                    using (StreamReader sr = new StreamReader(fs))
+                    {
+                        main_Bookings_ListBox.Items.Add(sr.ReadToEnd());
+                    }
+                }
+            }
+        }
+
+        private void main_SaveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog Save_File = new SaveFileDialog();
+            Save_File.Filter = "Text Document|*.txt";
+            Save_File.FilterIndex = 1;
+            Save_File.RestoreDirectory = true;
+
+            Nullable<bool> result = Save_File.ShowDialog();
+
+            if (result == true)
+            {
+                using (FileStream fs = (FileStream)Save_File.OpenFile())
+                {
+                    using (StreamWriter sw = new StreamWriter(fs))
+                    {
+                        foreach (Booking x in bookings)
+                        {
+                            sw.Write(String.Format("{0}, {1}, {2}, kl. {3}.\n", x.Date, x.Name, x.TableNumber, x.Time));
+                        }
+                    }
+                }
             }
 
         }

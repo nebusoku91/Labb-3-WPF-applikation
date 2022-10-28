@@ -4,27 +4,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Labb_3___WPF_applikation"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize">
+        Title="Booking Screen" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation ="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
+            
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>        
-        <DatePicker x:Name="btn_DatePicker" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" Margin="245,45,0,0" VerticalAlignment="Top" Width="160"/>
-        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="203,111,436,217"/>
-        <Button x:Name="btn_Boka" Grid.Column="1" Content="Boka" HorizontalAlignment="Left" Margin="23,152,0,0" Grid.Row="1" VerticalAlignment="Top" Height="40" Width="160" RenderTransformOrigin="0.791,0.537" Click="btn_Boka_Click"/>
+
+    <DatePicker x:Name="main_DatePicker" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" Margin="245,45,0,0" VerticalAlignment="Top" Width="160"/>
+        <Button x:Name="main_BokaBtn" Grid.Column="1" Content="Boka" HorizontalAlignment="Left" Margin="23,152,0,0" Grid.Row="1" VerticalAlignment="Top" Height="40" Width="160" RenderTransformOrigin="0.791,0.537" Click="main_BokaBtn_Click"/>
         <Button x:Name="btn_Visa" Grid.Column="1" Content="Visa Bokningar" HorizontalAlignment="Left" Margin="245,152,0,0" Grid.Row="1" VerticalAlignment="Top" Height="40" Width="160" Click="btn_Visa_Click"/>
+        <Button x:Name="main_SaveBtn" Grid.Column="1" Content="Spara Lista" HorizontalAlignment="Left" Margin="23,313,0,0" Height="40" Width="160" VerticalAlignment="Top" Click="main_SaveBtn_Click"/>
         <Button x:Name="btn_Avboka" Grid.Column="1" Content="Avboka" HorizontalAlignment="Left" Margin="23,209,0,0" Grid.Row="1" VerticalAlignment="Top" Height="40" Width="160" RenderTransformOrigin="0.491,0.823" Click="btn_Avboka_Click"/>
-        <TextBox x:Name="txt_nameInput" Grid.Column="1" HorizontalAlignment="Left" Margin="23,45,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Height="24"/>
+        <Button x:Name="main_LoadBtn" Grid.Column="1" Content="Ladda Fil" HorizontalAlignment="Left" Margin="245,313,0,0" Height="40" Width="160" VerticalAlignment="Top" Click="main_LoadBtn_Click"/>
+        <TextBox x:Name="main_nameInput" Grid.Column="1" HorizontalAlignment="Left" Margin="23,45,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Height="24"/>
         <Label x:Name="lbl_Name" Grid.Column="1" Content="Namn" HorizontalAlignment="Left" Margin="23,19,0,0" Grid.Row="1" VerticalAlignment="Top" Width="125"/>
         <Label Grid.Column="1" Content="Datum" HorizontalAlignment="Left" Margin="245,19,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160"/>
-        <ComboBox x:Name="cbox_Time" Grid.Column="1" HorizontalAlignment="Left" Margin="23,105,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160">
+        <ComboBox x:Name="main_Time" Grid.Column="1" HorizontalAlignment="Left" Margin="23,105,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160">
             <ComboBoxItem Content="08:00"/>
             <ComboBoxItem Content="09:00"/>
             <ComboBoxItem Content="10:00"/>
@@ -39,15 +37,15 @@
             <ComboBoxItem Content="19:00"/>
             <ComboBoxItem Content="20:00"/>
         </ComboBox>
-        <ComboBox x:Name="cbox_Table" Grid.Column="1" HorizontalAlignment="Left" Margin="245,105,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160">
+        <ComboBox x:Name="main_Table" Grid.Column="1" HorizontalAlignment="Left" Margin="245,105,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160">
             <ComboBoxItem Content="Bord 1"/>
             <ComboBoxItem Content="Bord 2"/>
             <ComboBoxItem Content="Bord 3"/>
             <ComboBoxItem Content="Bord 4"/>
             <ComboBoxItem Content="Bord 5"/>
         </ComboBox>
-        <Label x:Name="lbl_Time" Grid.Column="1" Content="Tid" HorizontalAlignment="Left" Margin="23,79,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <Label x:Name="lbl_Table" Grid.Column="1" Content="Bordsnummer" HorizontalAlignment="Left" Margin="245,79,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <ListBox x:Name="lbox_Bookings_Content" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,0,10" />
+        <Label x:Name="main_Time_Label" Grid.Column="1" Content="Tid" HorizontalAlignment="Left" Margin="23,79,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Label x:Name="main_Table_Label" Grid.Column="1" Content="Bordsnummer" HorizontalAlignment="Left" Margin="245,79,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <ListBox x:Name="main_Bookings_ListBox" Margin="5,0,5,0" Height="400" VerticalAlignment="Center" />
     </Grid>
 </Window>
