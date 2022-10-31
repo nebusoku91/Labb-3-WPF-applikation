@@ -8,44 +8,23 @@
         Title="Booking Screen" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation ="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
-            
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
-    <DatePicker x:Name="main_DatePicker" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" Margin="245,45,0,0" VerticalAlignment="Top" Width="160"/>
-        <Button x:Name="main_BokaBtn" Grid.Column="1" Content="Boka" HorizontalAlignment="Left" Margin="23,152,0,0" Grid.Row="1" VerticalAlignment="Top" Height="40" Width="160" RenderTransformOrigin="0.791,0.537" Click="main_BokaBtn_Click"/>
-        <Button x:Name="btn_Visa" Grid.Column="1" Content="Visa Bokningar" HorizontalAlignment="Left" Margin="245,152,0,0" Grid.Row="1" VerticalAlignment="Top" Height="40" Width="160" Click="btn_Visa_Click"/>
-        <Button x:Name="main_SaveBtn" Grid.Column="1" Content="Spara Lista" HorizontalAlignment="Left" Margin="23,313,0,0" Height="40" Width="160" VerticalAlignment="Top" Click="main_SaveBtn_Click"/>
-        <Button x:Name="btn_Avboka" Grid.Column="1" Content="Avboka" HorizontalAlignment="Left" Margin="23,209,0,0" Grid.Row="1" VerticalAlignment="Top" Height="40" Width="160" RenderTransformOrigin="0.491,0.823" Click="btn_Avboka_Click"/>
-        <Button x:Name="main_LoadBtn" Grid.Column="1" Content="Ladda Fil" HorizontalAlignment="Left" Margin="245,313,0,0" Height="40" Width="160" VerticalAlignment="Top" Click="main_LoadBtn_Click"/>
-        <TextBox x:Name="main_nameInput" Grid.Column="1" HorizontalAlignment="Left" Margin="23,45,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Height="24"/>
-        <Label x:Name="lbl_Name" Grid.Column="1" Content="Namn" HorizontalAlignment="Left" Margin="23,19,0,0" Grid.Row="1" VerticalAlignment="Top" Width="125"/>
-        <Label Grid.Column="1" Content="Datum" HorizontalAlignment="Left" Margin="245,19,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160"/>
-        <ComboBox x:Name="main_Time" Grid.Column="1" HorizontalAlignment="Left" Margin="23,105,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160">
-            <ComboBoxItem Content="08:00"/>
-            <ComboBoxItem Content="09:00"/>
-            <ComboBoxItem Content="10:00"/>
-            <ComboBoxItem Content="11:00"/>
-            <ComboBoxItem Content="12:00"/>
-            <ComboBoxItem Content="13:00"/>
-            <ComboBoxItem Content="14:00"/>
-            <ComboBoxItem Content="15:00"/>
-            <ComboBoxItem Content="16:00"/>
-            <ComboBoxItem Content="17:00"/>
-            <ComboBoxItem Content="18:00"/>
-            <ComboBoxItem Content="19:00"/>
-            <ComboBoxItem Content="20:00"/>
-        </ComboBox>
-        <ComboBox x:Name="main_Table" Grid.Column="1" HorizontalAlignment="Left" Margin="245,105,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160">
-            <ComboBoxItem Content="Bord 1"/>
-            <ComboBoxItem Content="Bord 2"/>
-            <ComboBoxItem Content="Bord 3"/>
-            <ComboBoxItem Content="Bord 4"/>
-            <ComboBoxItem Content="Bord 5"/>
-        </ComboBox>
-        <Label x:Name="main_Time_Label" Grid.Column="1" Content="Tid" HorizontalAlignment="Left" Margin="23,79,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <Label x:Name="main_Table_Label" Grid.Column="1" Content="Bordsnummer" HorizontalAlignment="Left" Margin="245,79,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <ListBox x:Name="main_Bookings_ListBox" Margin="5,0,5,0" Height="400" VerticalAlignment="Center" />
+        <DatePicker x:Name="main_DatePicker" Grid.Column="1" Margin="250,45,90,0" VerticalAlignment="Top"/>
+        <Button x:Name="main_BokaBtn" Grid.Column="1" Content="Boka" HorizontalAlignment="Left" Margin="36,152,0,0" VerticalAlignment="Top" Height="40" Width="160" RenderTransformOrigin="0.791,0.537" Click="main_BokaBtn_Click"/>
+        <Button x:Name="main_VisaBtn" Grid.Column="1" Content="Visa Bokningar" HorizontalAlignment="Left" Margin="250,152,0,0" VerticalAlignment="Top" Height="40" Width="160" Click="main_VisaBtn_Click"/>
+        <Button x:Name="main_SaveBtn" Grid.Column="1" Content="Spara Lista" HorizontalAlignment="Left" Margin="36,313,0,0" Height="40" Width="160" VerticalAlignment="Top" Click="main_SaveBtn_Click"/>
+        <Button x:Name="main_AvbokaBtn" Grid.Column="1" Content="Avboka" HorizontalAlignment="Left" Margin="36,217,0,0" VerticalAlignment="Top" Height="40" Width="160" RenderTransformOrigin="0.491,0.823" Click="main_AvbokaBtn_Click"/>
+        <Button x:Name="main_LoadBtn" Grid.Column="1" Content="Ladda Fil" HorizontalAlignment="Left" Margin="250,313,0,0" Height="40" Width="160" VerticalAlignment="Top" Click="main_LoadBtn_Click"/>
+        <TextBox x:Name="main_nameInput" Grid.Column="1" HorizontalAlignment="Left" Margin="36,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Height="24"/>
+        <Label x:Name="main_Name_Lable" Grid.Column="1" Content="Namn" HorizontalAlignment="Left" Margin="36,19,0,0" VerticalAlignment="Top" Width="125"/>
+        <Label Grid.Column="1" Content="Datum" HorizontalAlignment="Left" Margin="250,19,0,0" VerticalAlignment="Top" Width="160"/>
+        <ComboBox x:Name="main_Time" Grid.Column="1" HorizontalAlignment="Left" Margin="36,105,0,0" VerticalAlignment="Top" Width="160"/>
+        <ComboBox x:Name="main_Table" Grid.Column="1" HorizontalAlignment="Left" Margin="250,105,0,0" VerticalAlignment="Top" Width="160"/>
+        <Label x:Name="main_Time_Label" Grid.Column="1" Content="Tid" HorizontalAlignment="Left" Margin="36,79,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="main_Table_Label" Grid.Column="1" Content="Bordsnummer" HorizontalAlignment="Left" Margin="250,79,0,0" VerticalAlignment="Top"/>
+        <ListBox x:Name="main_Bookings_ListBox" Margin="5,0,5,0" Height="400" VerticalAlignment="Center" >
+        </ListBox>
     </Grid>
 </Window>

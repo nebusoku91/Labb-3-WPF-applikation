@@ -8,11 +8,11 @@ namespace Labb_3___WPF_applikation
 {
     internal class Booking
     {
-        public Booking(string name, string tableNumber, string date, string time)
+        public Booking(string date, string tableNumber, string name, string time)
         {
+            this.Date = date;
             this.Name = name;
             this.TableNumber = tableNumber;
-            this.Date = date;
             this.Time = time;
         }
         public string Name { get; set; }
