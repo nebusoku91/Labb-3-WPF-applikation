@@ -19,5 +19,11 @@ namespace Labb_3___WPF_applikation
         public string TableNumber { get; set; }
         public string Date { get; set; }
         public string Time { get; set; }
+        public override string ToString()
+        {
+            return $"{Date}, {TableNumber}, {Name}, kl. {Time}.";
+        }
     }
+    // Order =  Date > Name > Table > Time
+   
 }

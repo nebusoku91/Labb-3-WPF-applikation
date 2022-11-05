@@ -17,14 +17,15 @@ namespace Labb_3___WPF_applikation
 
         List<Booking> bookings = new List<Booking>()
         {
-        new Booking ("2023-11-09", "Jan Eriksson", "Bord 2", "13:00"),
-        new Booking ("2023-12-12", "Margareta Persson", "Bord 4", "16:00"),
-        new Booking ("2023-10-22", "Stina Lundgren", "Bord 5", "11:00"),
+        new Booking ("2011-04-17", "Ned Stark", "Bord 2", "13:00"),
+        new Booking ("1999-07-14", "Thomas Anderson", "Bord 4", "16:00"),
+        new Booking ("1979-11-02", "Ellen Ripley", "Bord 5", "11:00"),
+        new Booking ("1985-02-08", "Sarah Connor", "Bord 1", "20:00"),
         };
 
         string[] time_Array = { "08:00", "08.30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00",
         "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00"};
-        string[] table_Array = {"Bord 1", "Bord 2", "Bord 3", "Bord 4", "Bord 5"};
+        string[] table_Array = { "Bord 1", "Bord 2", "Bord 3", "Bord 4", "Bord 5" };
 
         // Order =  Date > Name > Table > Time
 
@@ -35,32 +36,41 @@ namespace Labb_3___WPF_applikation
             main_Time.ItemsSource = time_Array;
             main_Table.ItemsSource = table_Array;
             main_DatePicker.DisplayDateStart = DateTime.Today;
+            main_DatePicker.SelectedDate = DateTime.Now;
             Loaded += (s, e) => Keyboard.Focus(main_nameInput);
         }
 
         private void DisplayContent()
         {
-            try
-            {
-                main_Bookings_ListBox.Items.Clear();
+            main_nameInput.Text = null;
+            main_Table.Text = null;
+            main_Time.Text = null;
+            main_Bookings_ListBox.ItemsSource = null;
+            main_Bookings_ListBox.Items.Clear();
+            main_DatePicker.SelectedDate = DateTime.Now;
+            main_Bookings_ListBox.ItemsSource = bookings;
 
-                foreach (Booking x in bookings)
-                {
-                    main_Bookings_ListBox.Items.Add(String.Format("{0}, {1}, {2}, kl. {3}", x.Date, x.Name, x.TableNumber, x.Time));
-                }
-            }
-            catch (InvalidOperationException ex)
-            {
-                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (FormatException ex)
-            {
-                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (ArgumentNullException ex)
-            {
-                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+            //try
+            //{
+            //    main_Bookings_ListBox.Items.Clear();
+
+            //    foreach (Booking x in bookings)
+            //    {
+            //        main_Bookings_ListBox.Items.Add(String.Format("{0}, {1}, {2}, kl. {3}", x.Date, x.Name, x.TableNumber, x.Time));
+            //    }
+            //}
+            //catch (InvalidOperationException ex)
+            //{
+            //    System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            //}
+            //catch (FormatException ex)
+            //{
+            //    System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            //}
+            //catch (ArgumentNullException ex)
+            //{
+            //    System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            //}
         }
 
         private void main_BokaBtn_Click(object sender, RoutedEventArgs e)
@@ -76,7 +86,9 @@ namespace Labb_3___WPF_applikation
                 input_Table = main_Table.Text;
                 input_Time = main_Time.Text;
 
-                Regex rg = new Regex(@"^[a-zA-Z]{2,}\s[a-zA-Z]{2,}$");
+                // Regex rg = new Regex(@"^[a-zA-Z]{2,}\s[a-zA-Z]{2,}$");
+
+                Regex rg = new Regex(@"^[a-zåäöA-ZÅÄÖ]{2,}\s[a-zåäöA-ZÅÄÖ]{2,}$");
 
                 if (input_Name == "")
                 {
@@ -85,7 +97,7 @@ namespace Labb_3___WPF_applikation
                 }
                 if (!rg.IsMatch(input_Name))
                 {
-                    System.Windows.MessageBox.Show("Skriv in För- och Efternamn", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                    System.Windows.MessageBox.Show("Skriv in För- och Efternamn med endast ett mellanslag.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
                 if (input_Table == "")
@@ -157,69 +169,106 @@ namespace Labb_3___WPF_applikation
 
         private void main_LoadBtn_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.DefaultExt = ".txt";
-            dlg.Filter = "Text Document|*.txt";
-
-            Nullable<bool> result = dlg.ShowDialog();
-
-            if (result == true)
+            try
             {
-                using (FileStream fs = (FileStream)dlg.OpenFile())
+                OpenFileDialog dlg = new OpenFileDialog();
+                dlg.DefaultExt = ".txt";
+                dlg.Filter = "Text Document|*.txt";
+
+                Nullable<bool> result = dlg.ShowDialog();
+
+                if (result == true)
                 {
-                    using (StreamReader sr = new StreamReader(fs))
+                    using (FileStream fs = (FileStream)dlg.OpenFile())
                     {
-                        string read_File = sr.ReadToEnd();
-                        //string[] list = read_File.Split("\r\n");
-                        //for (int i = 0; i < list.Length; i++)
-                        //{
+                        using (StreamReader sr = new StreamReader(fs))
+                        {
+                            string read_File = sr.ReadToEnd();
 
-                        //}
-                        //int z = 0;
-                        //int x = 1;
-                        //int c = 2;
-                        //int v = 3;
-
-                        //for (int i = 0; i < list.Length; i++)
-                        //{
-                        //    bookings.Add(new Booking(list[z], list[x], list[c], list[v]));
-                        //    z = z + 4;
-                        //    x = x + 4;
-                        //    c = c + 4;
-                        //    v = v + 4;
-                        //}
-
-                        main_Bookings_ListBox.Items.Add(read_File);
-
-                        //main_Bookings_ListBox.Items.Add(sr.ReadToEnd());
+                            main_Bookings_ListBox.ItemsSource = null;
+                            main_Bookings_ListBox.Items.Clear();
+                            main_Bookings_ListBox.Items.Add(read_File);
+                            //main_Bookings_ListBox.Items.Add(sr.ReadToEnd());
+                        }
                     }
                 }
+            }
+            catch (InvalidOperationException ex)
+            {
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
         private void main_SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog Save_File = new SaveFileDialog();
-            Save_File.Filter = "Text Document|*.txt";
-            Save_File.FilterIndex = 1;
-            Save_File.RestoreDirectory = true;
-
-            Nullable<bool> result = Save_File.ShowDialog();
-
-            if (result == true)
+            try
             {
-                using (FileStream fs = (FileStream)Save_File.OpenFile())
+                SaveFileDialog Save_File = new SaveFileDialog();
+                Save_File.Filter = "Text Document|*.txt";
+                Save_File.FilterIndex = 1;
+                Save_File.RestoreDirectory = true;
+
+                Nullable<bool> result = Save_File.ShowDialog();
+
+                if (result == true)
                 {
-                    using (StreamWriter sw = new StreamWriter(fs))
+                    using (FileStream fs = (FileStream)Save_File.OpenFile())
                     {
-                        foreach (Booking x in bookings)
+                        using (StreamWriter sw = new StreamWriter(fs))
                         {
-                            sw.Write(String.Format("{0}, {1}, {2}, kl. {3}.\n", x.Date, x.Name, x.TableNumber, x.Time));
+                            foreach (Booking x in bookings)
+                            {
+                                sw.Write(String.Format("{0}, {1}, {2}, kl. {3}.\n", x.Date, x.Name, x.TableNumber, x.Time));
+                            }
                         }
                     }
                 }
+                DisplayContent();
             }
-            DisplayContent();
+            catch (ObjectDisposedException ex)
+            {
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (NotSupportedException ex)
+            {
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (IOException ex)
+            {
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (ArgumentNullException ex)
+            {
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (FormatException ex)
+            {
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+        }
+
+        private void SortedBy_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                List<Booking> sortByDate = new List<Booking>(bookings.OrderBy(date => date.Date).ThenBy(table => table.TableNumber).ThenBy(name => name.Name).ThenBy(time => time.Time));
+
+                bookings.Clear();
+
+                foreach (var x in sortByDate)
+                {
+                    bookings.Add(new Booking(x.Date, x.TableNumber, x.Name, x.Time));
+                }
+                DisplayContent();
+            }
+            catch (ArgumentNullException ex)
+            {
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            //bookings.OrderBy(date => date.Date).ThenBy(table => table.TableNumber).ThenBy(name => name.Name).ThenBy(time => time.Time);
+            //DisplayContent();
+
         }
     }
 }
