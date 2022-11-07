@@ -12,11 +12,10 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <DatePicker x:Name="main_DatePicker" Grid.Column="2" Margin="250,45,90,0" VerticalAlignment="Top"/>
-        <Button x:Name="main_BokaBtn" Grid.Column="1" Content="Boka" HorizontalAlignment="Left" Margin="36,152,0,0" VerticalAlignment="Top" Height="40" Width="160" RenderTransformOrigin="0.791,0.537" Click="main_BokaBtn_Click"/>
-        <Button x:Name="main_VisaBtn" Grid.Column="1" Content="Visa Bokningar" HorizontalAlignment="Left" Margin="250,152,0,0" VerticalAlignment="Top" Height="40" Width="160" Click="main_VisaBtn_Click"/>
-        <Button x:Name="main_SaveBtn" Grid.Column="1" Content="Spara Lista" HorizontalAlignment="Left" Margin="36,313,0,0" Height="40" Width="160" VerticalAlignment="Top" Click="main_SaveBtn_Click"/>
-        <Button x:Name="main_AvbokaBtn" Grid.Column="1" Content="Avboka" HorizontalAlignment="Left" Margin="36,217,0,0" VerticalAlignment="Top" Height="40" Width="160" RenderTransformOrigin="0.491,0.823" Click="main_AvbokaBtn_Click"/>
-        <Button x:Name="main_LoadBtn" Grid.Column="1" Content="Ladda Fil" HorizontalAlignment="Left" Margin="250,313,0,0" Height="40" Width="160" VerticalAlignment="Top" Click="main_LoadBtn_Click"/>
+        <Button x:Name="main_BokaBtn" Grid.Column="1" Content="Boka" HorizontalAlignment="Left" Margin="36,167,0,0" VerticalAlignment="Top" Height="40" Width="160" RenderTransformOrigin="0.791,0.537" Click="main_BokaBtn_Click"/>
+        <Button x:Name="main_SaveBtn" Grid.Column="1" Content="Spara Bokningar" HorizontalAlignment="Left" Margin="250,247,0,0" Height="40" Width="160" VerticalAlignment="Top" Click="main_SaveBtn_Click" RenderTransformOrigin="0.469,1.224"/>
+        <Button x:Name="main_AvbokaBtn" Grid.Column="1" Content="Avboka" HorizontalAlignment="Left" Margin="36,247,0,0" VerticalAlignment="Top" Height="40" Width="160" RenderTransformOrigin="0.491,0.823" Click="main_AvbokaBtn_Click"/>
+        <Button x:Name="main_LoadBtn" Grid.Column="1" Content="Visa Bokningar" HorizontalAlignment="Left" Margin="250,167,0,0" Height="40" Width="160" VerticalAlignment="Top" Click="main_LoadBtn_Click"/>
         <TextBox x:Name="main_nameInput" Grid.Column="1" HorizontalAlignment="Left" Margin="36,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Height="24"/>
         <Label x:Name="main_Name_Lable" Grid.Column="1" Content="Namn" HorizontalAlignment="Left" Margin="36,19,0,0" VerticalAlignment="Top" Width="125"/>
         <Label Grid.Column="2" Content="Datum" HorizontalAlignment="Left" Margin="250,19,0,0" VerticalAlignment="Top" Width="160"/>
@@ -26,6 +25,9 @@
         <ComboBox x:Name="main_Table" Grid.Column="1" HorizontalAlignment="Left" Margin="250,105,0,0" VerticalAlignment="Top" Width="160"/>
         <ListBox x:Name="main_Bookings_ListBox" Margin="5,0,5,0" Height="400" VerticalAlignment="Center" >
         </ListBox>
-        <Button x:Name="SortedBy" Grid.Column="1" Content="Sortera Efter Datum" HorizontalAlignment="Left" Margin="250,217,0,0" VerticalAlignment="Top" Height="40" Width="160" Click="SortedBy_Click"/>
+        <CheckBox x:Name="sort_Date" Grid.Column="1" Content="Datum" HorizontalAlignment="Left" Margin="36,330,0,0" VerticalAlignment="Top" Checked="sort_Date_Checked"/>
+        <CheckBox x:Name="sort_Name" Grid.Column="1" Content="Namn" HorizontalAlignment="Left" Margin="144,330,0,0" VerticalAlignment="Top" Checked="sort_Name_Checked"/>
+        <CheckBox x:Name="sort_Table" Grid.Column="1" Content="Bordsnummer" HorizontalAlignment="Left" Margin="245,330,0,0" VerticalAlignment="Top" Checked="sort_Table_Checked"/>
+        <CheckBox x:Name="sort_Time" Grid.Column="1" Content="TId" HorizontalAlignment="Left" Margin="373,330,0,0" VerticalAlignment="Top" Checked="sort_Time_Checked"/>
     </Grid>
 </Window>

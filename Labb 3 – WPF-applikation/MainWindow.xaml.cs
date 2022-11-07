@@ -26,51 +26,42 @@ namespace Labb_3___WPF_applikation
         string[] time_Array = { "08:00", "08.30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00",
         "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00"};
         string[] table_Array = { "Bord 1", "Bord 2", "Bord 3", "Bord 4", "Bord 5" };
-
-        // Order =  Date > Name > Table > Time
+        
 
         public MainWindow()
         {
-            InitializeComponent();
-            DisplayContent();
-            main_Time.ItemsSource = time_Array;
-            main_Table.ItemsSource = table_Array;
-            main_DatePicker.DisplayDateStart = DateTime.Today;
-            main_DatePicker.SelectedDate = DateTime.Now;
-            Loaded += (s, e) => Keyboard.Focus(main_nameInput);
+            try
+            {
+                InitializeComponent();
+                DisplayContent();
+                main_Time.ItemsSource = time_Array;
+                main_Table.ItemsSource = table_Array;
+                main_DatePicker.DisplayDateStart = DateTime.Today;
+                main_DatePicker.SelectedDate = DateTime.Now;
+                Loaded += (s, e) => Keyboard.Focus(main_nameInput);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private void DisplayContent()
         {
-            main_nameInput.Text = null;
-            main_Table.Text = null;
-            main_Time.Text = null;
-            main_Bookings_ListBox.ItemsSource = null;
-            main_Bookings_ListBox.Items.Clear();
-            main_DatePicker.SelectedDate = DateTime.Now;
-            main_Bookings_ListBox.ItemsSource = bookings;
+            try
+            {
+                main_nameInput.Text = null;
+                main_Table.Text = null;
+                main_Time.Text = null;
+                main_DatePicker.SelectedDate = DateTime.Now;
+                main_Bookings_ListBox.ItemsSource = null;
+                main_Bookings_ListBox.ItemsSource = bookings;
 
-            //try
-            //{
-            //    main_Bookings_ListBox.Items.Clear();
-
-            //    foreach (Booking x in bookings)
-            //    {
-            //        main_Bookings_ListBox.Items.Add(String.Format("{0}, {1}, {2}, kl. {3}", x.Date, x.Name, x.TableNumber, x.Time));
-            //    }
-            //}
-            //catch (InvalidOperationException ex)
-            //{
-            //    System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-            //}
-            //catch (FormatException ex)
-            //{
-            //    System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-            //}
-            //catch (ArgumentNullException ex)
-            //{
-            //    System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-            //}
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private void main_BokaBtn_Click(object sender, RoutedEventArgs e)
@@ -85,8 +76,6 @@ namespace Labb_3___WPF_applikation
                 input_Name = main_nameInput.Text.Trim();
                 input_Table = main_Table.Text;
                 input_Time = main_Time.Text;
-
-                // Regex rg = new Regex(@"^[a-zA-Z]{2,}\s[a-zA-Z]{2,}$");
 
                 Regex rg = new Regex(@"^[a-zåäöA-ZÅÄÖ]{2,}\s[a-zåäöA-ZÅÄÖ]{2,}$");
 
@@ -125,7 +114,7 @@ namespace Labb_3___WPF_applikation
                     }
                 }
 
-                bookings.Add(new Booking(input_DatePicker, input_Table, input_Name, input_Time));
+                bookings.Add(new Booking(input_DatePicker, input_Name, input_Table, input_Time));
                 DisplayContent();
             }
             catch (Exception ex)
@@ -184,11 +173,7 @@ namespace Labb_3___WPF_applikation
                         using (StreamReader sr = new StreamReader(fs))
                         {
                             string read_File = sr.ReadToEnd();
-
-                            main_Bookings_ListBox.ItemsSource = null;
-                            main_Bookings_ListBox.Items.Clear();
-                            main_Bookings_ListBox.Items.Add(read_File);
-                            //main_Bookings_ListBox.Items.Add(sr.ReadToEnd());
+                            System.Windows.MessageBox.Show(read_File, "Bokningar", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                     }
                 }
@@ -248,17 +233,20 @@ namespace Labb_3___WPF_applikation
 
         }
 
-        private void SortedBy_Click(object sender, RoutedEventArgs e)
+        public void sort_Date_Checked(object sender, RoutedEventArgs e)
         {
             try
             {
-                List<Booking> sortByDate = new List<Booking>(bookings.OrderBy(date => date.Date).ThenBy(table => table.TableNumber).ThenBy(name => name.Name).ThenBy(time => time.Time));
+                sort_Table.IsChecked = false;
+                sort_Time.IsChecked = false;
+                sort_Name.IsChecked = false;
+                List<Booking> sortByDate = new List<Booking>(bookings.OrderBy(date => date.Date));
 
                 bookings.Clear();
 
                 foreach (var x in sortByDate)
                 {
-                    bookings.Add(new Booking(x.Date, x.TableNumber, x.Name, x.Time));
+                    bookings.Add(new Booking(x.Date, x.Name, x.TableNumber, x.Time));
                 }
                 DisplayContent();
             }
@@ -266,9 +254,78 @@ namespace Labb_3___WPF_applikation
             {
                 System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            //bookings.OrderBy(date => date.Date).ThenBy(table => table.TableNumber).ThenBy(name => name.Name).ThenBy(time => time.Time);
-            //DisplayContent();
-
         }
+
+        private void sort_Name_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                sort_Table.IsChecked = false;
+                sort_Time.IsChecked = false;
+                sort_Date.IsChecked = false;
+                List<Booking> sortByName = new List<Booking>(bookings.OrderBy(name => name.Name));
+
+                bookings.Clear();
+
+                foreach (var x in sortByName)
+                {
+                    bookings.Add(new Booking(x.Date, x.Name, x.TableNumber, x.Time));
+                }
+                DisplayContent();
+            }
+            catch (ArgumentNullException ex)
+            {
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void sort_Table_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                sort_Time.IsChecked = false;
+                sort_Date.IsChecked = false;
+                sort_Name.IsChecked = false;
+                List<Booking> sortByTable = new List<Booking>(bookings.OrderBy(table => table.TableNumber));
+
+                bookings.Clear();
+
+                foreach (var x in sortByTable)
+                {
+                    bookings.Add(new Booking(x.Date, x.Name, x.TableNumber, x.Time));
+                }
+                DisplayContent();
+            }
+            catch (ArgumentNullException ex)
+            {
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void sort_Time_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                sort_Table.IsChecked = false;
+                sort_Date.IsChecked = false;
+                sort_Name.IsChecked = false;
+                List<Booking> sortByTime = new List<Booking>(bookings.OrderBy(time => time.Time));
+
+                bookings.Clear();
+
+                foreach (var x in sortByTime)
+                {
+                    bookings.Add(new Booking(x.Date, x.Name, x.TableNumber, x.Time));
+                }
+                DisplayContent();
+            }
+            catch (ArgumentNullException ex)
+            {
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
     }
+
+
 }
