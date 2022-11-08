@@ -64,7 +64,7 @@ namespace Labb_3___WPF_applikation
             }
         }
 
-        private void main_BokaBtn_Click(object sender, RoutedEventArgs e)
+        private void Main_BokaBtn_Click(object sender, RoutedEventArgs e)
         {
             string input_DatePicker;
             string input_Name;
@@ -124,20 +124,7 @@ namespace Labb_3___WPF_applikation
 
         }
 
-        private void main_VisaBtn_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                DisplayContent();
-            }
-            catch (Exception ex)
-            {
-                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-
-        }
-
-        private void main_AvbokaBtn_Click(object sender, RoutedEventArgs e)
+        private void Main_AvbokaBtn_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -156,7 +143,7 @@ namespace Labb_3___WPF_applikation
 
         }
 
-        private void main_LoadBtn_Click(object sender, RoutedEventArgs e)
+        private void Main_LoadBtn_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -184,14 +171,17 @@ namespace Labb_3___WPF_applikation
             }
         }
 
-        private void main_SaveBtn_Click(object sender, RoutedEventArgs e)
+        private void Main_SaveBtn_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+
+                string default_FileName = DateTime.Today.ToShortDateString();
                 SaveFileDialog Save_File = new SaveFileDialog();
                 Save_File.Filter = "Text Document|*.txt";
                 Save_File.FilterIndex = 1;
                 Save_File.RestoreDirectory = true;
+                Save_File.FileName = default_FileName;
 
                 Nullable<bool> result = Save_File.ShowDialog();
 
@@ -233,7 +223,7 @@ namespace Labb_3___WPF_applikation
 
         }
 
-        public void sort_Date_Checked(object sender, RoutedEventArgs e)
+        public void Sort_Date_Checked(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -256,7 +246,7 @@ namespace Labb_3___WPF_applikation
             }
         }
 
-        private void sort_Name_Checked(object sender, RoutedEventArgs e)
+        private void Sort_Name_Checked(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -279,7 +269,7 @@ namespace Labb_3___WPF_applikation
             }
         }
 
-        private void sort_Table_Checked(object sender, RoutedEventArgs e)
+        private void Sort_Table_Checked(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -302,7 +292,7 @@ namespace Labb_3___WPF_applikation
             }
         }
 
-        private void sort_Time_Checked(object sender, RoutedEventArgs e)
+        private void Sort_Time_Checked(object sender, RoutedEventArgs e)
         {
             try
             {
