@@ -86,7 +86,7 @@ namespace Labb_3___WPF_applikation
                 }
                 if (!rg.IsMatch(input_Name))
                 {
-                    System.Windows.MessageBox.Show("Skriv in För- och Efternamn med endast ett mellanslag.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                    System.Windows.MessageBox.Show("Skriv in för- och efternamn med endast ett mellanslag.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
                 if (input_Table == "")
