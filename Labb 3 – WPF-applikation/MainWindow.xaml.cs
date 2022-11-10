@@ -109,7 +109,7 @@ namespace Labb_3___WPF_applikation
                 {
                     if (xy.Date == input_DatePicker && xy.Time == input_Time && xy.TableNumber == input_Table)
                     {
-                        System.Windows.MessageBox.Show("Det angivna datum, tid, eller bord är ej tillgänglig.", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                        System.Windows.MessageBox.Show("Det angivna datum, tid, eller bord är inte tillgänglig.", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
                         return;
                     }
                 }
