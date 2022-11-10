@@ -169,6 +169,14 @@ namespace Labb_3___WPF_applikation
             {
                 System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+            catch (OutOfMemoryException ex)
+            {
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (IOException ex)
+            {
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private void Main_SaveBtn_Click(object sender, RoutedEventArgs e)
@@ -217,6 +225,10 @@ namespace Labb_3___WPF_applikation
                 System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (FormatException ex)
+            {
+                System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (InvalidOperationException ex)
             {
                 System.Windows.MessageBox.Show("I'm afraid I can't do that, Dave.\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
             }
